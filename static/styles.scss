@@ -1,0 +1,68 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+.topContainer {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.buttons {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+.apiButton {
+  background-color: #4caf50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.scrapperButton {
+  background-color: blue; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px;
+}
+
+.cards_container {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 1000px;
+}
+
+.card {
+  width: 80vw;
+  height: 100px;
+  border: 3px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+}
+
+.search {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}
+// search: https://www.youtube.com/watch?v=KD6MBvP-waM is this even necessary probably not but better safe than sorry
