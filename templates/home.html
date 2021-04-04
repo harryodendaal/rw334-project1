@@ -13,18 +13,32 @@ Home Page
     <form method='POST'>
       <input type="submit" name='api' value="Api" class="apiButton"/>
       <input type="submit" name="scrapper" value="Scrapper" class="scrapperButton"/>
+      <div class="search">
+        <input type="text" name="search" placeholder="Search..">
+      </div>
     </form>
   </div>
-   <div class="search">
-    <input type="text" name="search" placeholder="Search..">
-   </div>
+
 </div>
   <div class="cards_container">
     <!-- go through the data -->
     {% for dict_item in apiData %}
     <div class="card">
       <div class="card_content">
-        <h3>{{dict_item['repo_name']}}</h3>  
+        <h3>repo name: {{dict_item['repo_name']}}</h3> 
+        <p>description: {{dict_item['description']}}</p>
+        <p>number of stars: {{dict_item['num_stars']}},   language: {{dict_item['language']}}, license: {{dict_item['license']}},   last updated: {{dict_item['last_updated']}}</p>
+        <p>has issues: {{dict_item['has_issues']}}</p>
+      </div>
+    </div>
+     {% endfor %}
+     {% for dict_item in scrapeData %}
+    <div class="card">
+      <div class="card_content">
+        <h3>repo name: {{dict_item['repo_name']}}</h3> 
+        <p>description: {{dict_item['description']}}</p>
+        <p>number of stars: {{dict_item['num_stars']}},   language: {{dict_item['language']}}, license: {{dict_item['license']}},   last updated: {{dict_item['last_updated']}}</p>
+        <p>number of issues: {{dict_item['num_issues']}}</p>
       </div>
     </div>
      {% endfor %}
