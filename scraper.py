@@ -68,7 +68,6 @@ def scrape_github(search_term, num_pages=1):
     output.append(repo)
 
 
-  print(output)
   return output
 
 
@@ -117,6 +116,5 @@ def github_api(search_term, num_pages=1):
     # add to list
     output.append(repo)
 
-  print(output)
   return output
 
