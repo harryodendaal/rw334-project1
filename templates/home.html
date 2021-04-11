@@ -37,6 +37,9 @@ Home Page
       <div class="card_content">
         <h3>repo name: {{dict_item['repo_name']}}</h3> 
         <p>description: {{dict_item['description']}}</p>
+        <p>The tags: {% for item in dict_item['tags']%}
+          {{item}}, 
+        {% endfor %}</p>
         <p>number of stars: {{dict_item['num_stars']}},   language: {{dict_item['language']}}, license: {{dict_item['license']}},   last updated: {{dict_item['last_updated']}}</p>
         <p>number of issues: {{dict_item['num_issues']}}</p>
       </div>

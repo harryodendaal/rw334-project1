@@ -33,7 +33,6 @@
 
 .apiButton {
   background-color: #4caf50;
-  /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -46,7 +45,6 @@
 
 .scrapperButton {
   background-color: blue;
-  /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -71,12 +69,11 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  width: 1000px;
 }
 
 .card {
   width: 80vw;
-  height: 200px;
+  height: 250px;
   border: 3px solid black;
   border-radius: 5px;
   padding: 10px;

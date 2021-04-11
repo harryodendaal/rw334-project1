@@ -41,6 +41,7 @@ def scrape_github(search_term, num_pages=1):
     tags_processed = []
     for tag in tags_unprocessed:
       tags_processed.append(str(tag.text).strip())
+
     num_stars = str(ele.find('a', class_='Link--muted').text).strip() if ele.find('a', class_='Link--muted').text != None else None
     language = str(ele.find('span', itemprop='programmingLanguage').text).strip() if ele.find('span', itemprop='programmingLanguage') != None else None
     license_unprocessed = ele.find_all('div', class_='mr-3')
@@ -56,7 +57,7 @@ def scrape_github(search_term, num_pages=1):
     repo = {
       'repo_name':repo_name,
       'description':description,
-      'tags':tags_processed,
+      'tags':tags_processed if tags_processed != None else None,
       'num_stars':num_stars,
       'language':language,
       'license':license,
@@ -67,6 +68,7 @@ def scrape_github(search_term, num_pages=1):
     output.append(repo)
 
 
+  print(output)
   return output
 
 
@@ -115,9 +117,6 @@ def github_api(search_term, num_pages=1):
     # add to list
     output.append(repo)
 
+  print(output)
   return output
 
-if __name__ == "__main__":
-  # results = github_api("Computer Vision")
-  # print(results)
-  scrape_github("Computer Vision")
