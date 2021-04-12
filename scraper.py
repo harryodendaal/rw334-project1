@@ -23,49 +23,51 @@ def scrape_github(search_term, num_pages=1):
   """
   if search_term.strip() == "":
     return []
+  
+  if num_pages.strip() == "":
+    num_pages =1
 
-  link = "https://github.com/search?o=desc&q=" + search_term + "&s=stars&type=Repositories"
-
-  response = requests.get(link)
-
-  dom = BeautifulSoup(response.content, 'html.parser')
-
-  repos = dom.find_all('li', class_='repo-list-item')
+  num_pages = int(num_pages)
 
   output = []
+  for i in range(1, num_pages + 1):
+    link = "https://github.com/search?p=" + str(i)+"o=desc&q=" + search_term + "&s=stars&type=Repositories"
+    response = requests.get(link)
+    dom = BeautifulSoup(response.content, 'html.parser')
+    repos = dom.find_all('li', class_='repo-list-item')
 
-  for ele in repos:
-    repo_name = ele.find('a', class_='v-align-middle').text if ele.find('a', class_='v-align-middle').text != None else None
-    description = str(ele.find('p', class_="mb-1").text).strip() if ele.find('p', class_='mb-1').text != None else None
-    tags_unprocessed = ele.find_all('a', class_='topic-tag')
-    tags_processed = []
-    for tag in tags_unprocessed:
-      tags_processed.append(str(tag.text).strip())
+    for ele in repos:
+      repo_name = ele.find('a', class_='v-align-middle').text if ele.find('a', class_='v-align-middle').text != None else None
+      description = str(ele.find('p', class_="mb-1").text).strip() if ele.find('p', class_='mb-1').text != None else None
+      tags_unprocessed = ele.find_all('a', class_='topic-tag')
+      tags_processed = []
+      for tag in tags_unprocessed:
+        tags_processed.append(str(tag.text).strip())
 
-    num_stars = str(ele.find('a', class_='Link--muted').text).strip() if ele.find('a', class_='Link--muted').text != None else None
-    language = str(ele.find('span', itemprop='programmingLanguage').text).strip() if ele.find('span', itemprop='programmingLanguage') != None else None
-    license_unprocessed = ele.find_all('div', class_='mr-3')
+      num_stars = str(ele.find('a', class_='Link--muted').text).strip() if ele.find('a', class_='Link--muted').text != None else None
+      language = str(ele.find('span', itemprop='programmingLanguage').text).strip() if ele.find('span', itemprop='programmingLanguage') != None else None
+      license_unprocessed = ele.find_all('div', class_='mr-3')
 
-    license = None
-    for div in license_unprocessed:
-       license = str(div.text).strip() if 'license' in div.text else license
-  
-    last_updated = str(ele.find('relative-time')['datetime']) if ele.find('relative-time') != None else None
-    # holy mackerel that sure is long and uglY? o well takes the singular/ first digit out of a sentence if there is  a sentence.
-    num_issues = [int(s) for s in str(ele.find('a', class_='Link--muted f6').text).split() if s.isdigit()][0] if ele.find('a', class_='Link--muted f6') != None else None
+      license = None
+      for div in license_unprocessed:
+        license = str(div.text).strip() if 'license' in div.text else license
+    
+      last_updated = str(ele.find('relative-time')['datetime']) if ele.find('relative-time') != None else None
+      # holy mackerel that sure is long and uglY? o well takes the singular/ first digit out of a sentence if there is  a sentence.
+      num_issues = [int(s) for s in str(ele.find('a', class_='Link--muted f6').text).split() if s.isdigit()][0] if ele.find('a', class_='Link--muted f6') != None else None
 
-    repo = {
-      'repo_name':repo_name,
-      'description':description,
-      'tags':tags_processed if tags_processed != None else None,
-      'num_stars':num_stars,
-      'language':language,
-      'license':license,
-      'last_updated':last_updated,
-      'num_issues': num_issues
-    }
+      repo = {
+        'repo_name':repo_name,
+        'description':description,
+        'tags':tags_processed if tags_processed != None else None,
+        'num_stars':num_stars,
+        'language':language,
+        'license':license,
+        'last_updated':last_updated,
+        'num_issues': num_issues
+      }
 
-    output.append(repo)
+      output.append(repo)
 
 
   return output
@@ -89,17 +91,15 @@ def github_api(search_term, num_pages=1):
    A list of dictionaries containing the necessary
    info from the repositories
   """
-
   if search_term.strip() == "":
     return []
-
+ 
+  output = []
 
   link = "https://api.github.com/search/repositories?q=" + search_term + "&sort=stars&order=desc&per_page=10"
 
   response = requests.get(link)
   repos = response.json()
-
-  output = []
 
   for i in range(0, 10):
     # create dictionary
