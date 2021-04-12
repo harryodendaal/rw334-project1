@@ -111,7 +111,7 @@ def github_api(search_term, num_pages=1):
       "language":repos['items'][i]['language'] if repos['items'][i]['language'] != None else None,
       "license": repos['items'][i]['license']['name'] if repos['items'][i]['license'] != None and repos['items'][i]['license']['name'] != None and repos['items'][i]['license']['name'] != "Other" else None,
       "last_updated":repos['items'][i]['updated_at'] if repos['items'][i]['updated_at'] != None else None,
-      "has_issues":True if repos['items'][i]['has_issues'] == True else False
+      "has_issues": True if repos['items'][i]['has_issues'] == True else False
     }
     # add to list
     output.append(repo)
